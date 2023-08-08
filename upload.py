@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 "upload.py -- maps action params to viam update + upload commands"
 
-import argparse, os, subprocess, base64
+import argparse, os, subprocess, base64, logging
 
 def main():
     p = argparse.ArgumentParser(description='see action.yml for argument explanations')
@@ -21,11 +21,13 @@ def main():
     p.add_argument('--do-update', action='store_true')
     p.add_argument('--do-upload', action='store_true')
     args, _ = p.parse_known_args()
+    logging.basicConfig(level=logging.INFO)
 
     if args.cli_config_secret:
         os.makedirs(os.path.expanduser('~/.viam'))
         with open(os.path.expanduser('~/.viam/cached_cli_config.json'), 'wb') as fconfig:
             fconfig.write(base64.b64decode(args.cli_config_secret))
+        logging.info('wrote cli secret')
 
     meta_args = ()
     if args.meta_path:
@@ -36,12 +38,13 @@ def main():
         org_args = ('--public-namespace', args.namespace)
     else:
         raise Exception("shouldn't get here")
-    version_args = ('--version', args.version) if args.version else ()
 
     if args.do_update:
-        subprocess.check_output(['viam', 'module', 'update', *meta_args, *org_args])
+        subprocess.check_call(['viam', 'module', 'update', *meta_args, *org_args])
+        logging.info('ran update')
     if args.do_upload:
-        subprocess.check_output(['viam', 'module', 'upload', *meta_args, *org_args, '--platform', args.platform, *version_args, args.module_path])
+        subprocess.check_call(['viam', 'module', 'upload', *meta_args, *org_args, '--platform', args.platform, '--version', args.version, args.module_path])
+        logging.info('ran upload')
 
 if __name__ == '__main__':
     main()
