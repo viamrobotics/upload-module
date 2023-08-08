@@ -24,7 +24,7 @@ def main():
 
     if args.cli_config_secret:
         os.makedirs(os.path.expanduser('~/.viam'))
-        with open(os.path.expanduser('~/.viam/cached_cli_config.json'), 'w') as fconfig:
+        with open(os.path.expanduser('~/.viam/cached_cli_config.json'), 'wb') as fconfig:
             fconfig.write(base64.b64decode(args.cli_config_secret))
 
     meta_args = ()
