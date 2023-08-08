@@ -22,9 +22,11 @@ inputs:
     description: version to set for the module. required if do-upload=true
   do-update:
     description: run step 1, updating the metadata. requires metadata at inputs.meta-path.
+    type: boolean
     default: true
   do-upload:
     description: run step 2, uploading the module
+    type: boolean
     default: true
 
 runs:
@@ -47,8 +49,8 @@ runs:
   - ${{ inputs.platform || '' }}
   - ${{ inputs.version && '--version' || '' }}
   - ${{ inputs.version || '' }}
-  - ${{ inputs.do-update && '--do-update' || '' }}
-  - ${{ inputs.do-upload && '--do-upload' || '' }}
+  - ${{ inputs.do-update == true && '--do-update' || '' }}
+  - ${{ inputs.do-upload == true && '--do-upload' || '' }}
 
 branding:
   icon: upload-cloud
