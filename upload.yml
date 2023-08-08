@@ -1,0 +1,19 @@
+jobs:
+  upload-module:
+    env:
+      VIAM_CLI: viam-latest-linux-amd64
+    runs-on: busybox
+    steps:
+    - name: download CLI
+      # todo: clean this up in post-run action?
+      run: wget https://storage.googleapis.com/packages.viam.com/apps/viam-cli/$VIAM_CLI
+    - name: where am I
+      run: |
+        pwd
+        ls
+    - name: update
+      if: ${{ inputs.do-update }}
+      run: ./$VIAM_CLI update
+    - name: upload
+      if: ${{ inputs.do-upload }}
+      run: ./$VIAM_CLI upload

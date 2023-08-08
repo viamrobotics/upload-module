@@ -1,0 +1,34 @@
+name: Viam module upload
+description: Upload a module to the Viam registry
+
+inputs:
+  meta-path:
+    description: location of module metadata. set to empty string to not use
+    default: meta.json
+  module-path:
+    description: location of the bundled module
+    default: module.tar.gz
+  name:
+    description: name of the module. only necessary if you don't provide a metadata file. (see inputs.meta-path)
+  org-id:
+    description: organization id. one of org-id or namespace are required
+  namespace:
+    description: public namespace. one of org-id or namespace are required
+  cli-config:
+    description: cached_cli_config.json contents from ~/.viam. Alternative to providing an auth key.
+  platform:
+    description: a string like 'linux/amd64'. run `viam module upload --help` for all options.
+  do-update:
+    description: run step 1, updating the metadata. requires metadata at inputs.meta-path.
+    default: true
+  do-upload:
+    description: run step 2, uploading the module
+    default: true
+
+runs:
+  using: composite
+  steps:
+  - uses: ./upload.yml
+
+branding:
+  icon: upload-cloud
