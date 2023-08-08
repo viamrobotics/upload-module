@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
+
+set -euo pipefail
+
 echo entrypoint running
-./viam-* version
+viam version
 echo ls
 ls
 echo env
