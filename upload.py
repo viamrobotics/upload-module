@@ -36,11 +36,12 @@ def main():
         org_args = ('--public-namespace', args.namespace)
     else:
         raise Exception("shouldn't get here")
+    version_args = ('--version', args.version) if args.version else ()
 
     if args.do_update:
         subprocess.check_output(['viam', 'module', 'update', *meta_args, *org_args])
     if args.do_upload:
-        subprocess.check_output(['viam', 'module', 'upload', *meta_args, *org_args, '--platform', args.platform, '--version', args.version, args.module_path])
+        subprocess.check_output(['viam', 'module', 'upload', *meta_args, *org_args, '--platform', args.platform, *version_args, args.module_path])
 
 if __name__ == '__main__':
     main()
