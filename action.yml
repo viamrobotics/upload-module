@@ -14,8 +14,8 @@ inputs:
     description: organization id. one of org-id or namespace are required
   namespace:
     description: public namespace. one of org-id or namespace are required
-  cli-config:
-    description: cached_cli_config.json contents from ~/.viam. Alternative to providing an auth key.
+  cli-config-secret:
+    description: cached_cli_config.json contents from ~/.viam, as base64. Alternative to providing an auth key.
   platform:
     description: a string like 'linux/amd64'. run `viam module upload --help` for all options.
   do-update:
@@ -28,6 +28,16 @@ inputs:
 runs:
   using: docker
   image: Dockerfile
+  args:
+  - ${{ inputs.meta-path && "--meta-path ${{ inputs.meta-path }}" || false }}
+  - ${{ inputs.module-path && "--module-path ${{ inputs.module-path }}" || false }}
+  - ${{ inputs.name && "--name ${{ inputs.name }}" || false }}
+  - ${{ inputs.org-id && "--org-id ${{ inputs.org-id }}" || false }}
+  - ${{ inputs.namespace && "--namespace ${{ inputs.namespace }}" || false }}
+  - ${{ inputs.cli-config-secret && "--cli-config-secret ${{ inputs.cli-config-secret }}" || false }}
+  - ${{ inputs.platform && "--platform ${{ inputs.platform }}" || false }}
+  - ${{ inputs.do-update && "--do-update" || false }}
+  - ${{ inputs.do-upload && "--do-upload" || false }}
 
 branding:
   icon: upload-cloud
