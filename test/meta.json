@@ -3,6 +3,9 @@
   "visibility": "private",
   "url": "https://github.com/viamrobotics/upload-module",
   "description": "No-op module used for the upload CI action's self-test",
-  "models": [],
+  "models": [{
+    "api": "rdk:component:sensor",
+    "model": "viam:ci:upload"
+  }],
   "entrypoint": ""
 }
