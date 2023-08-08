@@ -26,10 +26,8 @@ inputs:
     default: true
 
 runs:
-  using: composite
-  steps:
-  - uses: actions/checkout@v3
-  - uses: ./upload.yml
+  using: docker
+  image: Dockerfile
 
 branding:
   icon: upload-cloud
