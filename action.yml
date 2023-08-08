@@ -18,6 +18,8 @@ inputs:
     description: cached_cli_config.json contents from ~/.viam, as base64. Alternative to providing an auth key.
   platform:
     description: a string like 'linux/amd64'. run `viam module upload --help` for all options.
+  version:
+    description: version to set for the module
   do-update:
     description: run step 1, updating the metadata. requires metadata at inputs.meta-path.
     default: true
@@ -43,6 +45,8 @@ runs:
   - ${{ inputs.cli-config-secret || '' }}
   - ${{ inputs.platform && '--platform' || '' }}
   - ${{ inputs.platform || '' }}
+  - ${{ inputs.version && '--version' || '' }}
+  - ${{ inputs.version || '' }}
   - ${{ inputs.do-update && '--do-update' || '' }}
   - ${{ inputs.do-upload && '--do-upload' || '' }}
 

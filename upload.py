@@ -20,9 +20,10 @@ def main():
     p.add_argument('--version')
     p.add_argument('--do-update', action='store_true')
     p.add_argument('--do-upload', action='store_true')
-    args = p.parse_args()
+    args, _ = p.parse_known_args()
 
     if args.cli_config_secret:
+        os.makedirs(os.path.expanduser('~/.viam'))
         with open(os.path.expanduser('~/.viam/cached_cli_config.json'), 'w') as fconfig:
             fconfig.write(base64.b64decode(args.cli_config_secret))
 
