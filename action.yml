@@ -49,8 +49,8 @@ runs:
   - ${{ inputs.platform || '' }}
   - ${{ inputs.version && '--version' || '' }}
   - ${{ inputs.version || '' }}
-  - ${{ inputs.do-update == 1 && '--do-update' || '' }}
-  - ${{ inputs.do-upload == 1 && '--do-upload' || '' }}
+  - ${{ fromJSON(inputs.do-update) && '--do-update' || '' }}
+  - ${{ fromJSON(inputs.do-upload) && '--do-upload' || '' }}
 
 branding:
   icon: upload-cloud
