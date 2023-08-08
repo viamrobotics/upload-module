@@ -29,15 +29,22 @@ runs:
   using: docker
   image: Dockerfile
   args:
-  - ${{ inputs.meta-path && '--meta-path ${{ inputs.meta-path }}' || false }}
-  - ${{ inputs.module-path && '--module-path ${{ inputs.module-path }}' || false }}
-  - ${{ inputs.name && '--name ${{ inputs.name }}' || false }}
-  - ${{ inputs.org-id && '--org-id ${{ inputs.org-id }}' || false }}
-  - ${{ inputs.namespace && '--namespace ${{ inputs.namespace }}' || false }}
-  - ${{ inputs.cli-config-secret && '--cli-config-secret ${{ inputs.cli-config-secret }}' || false }}
-  - ${{ inputs.platform && '--platform ${{ inputs.platform }}' || false }}
-  - ${{ inputs.do-update && '--do-update' || false }}
-  - ${{ inputs.do-upload && '--do-upload' || false }}
+  - ${{ inputs.meta-path && '--meta-path' || '' }}
+  - ${{ inputs.meta-path || '' }}
+  - ${{ inputs.module-path && '--module-path' || '' }}
+  - ${{ inputs.module-path || '' }}
+  - ${{ inputs.name && '--name' || '' }}
+  - ${{ inputs.name || '' }}
+  - ${{ inputs.org-id && '--org-id' || '' }}
+  - ${{ inputs.org-id || '' }}
+  - ${{ inputs.namespace && '--namespace' || '' }}
+  - ${{ inputs.namespace || '' }}
+  - ${{ inputs.cli-config-secret && '--cli-config-secret' || '' }}
+  - ${{ inputs.cli-config-secret || '' }}
+  - ${{ inputs.platform && '--platform' || '' }}
+  - ${{ inputs.platform || '' }}
+  - ${{ inputs.do-update && '--do-update' || '' }}
+  - ${{ inputs.do-upload && '--do-upload' || '' }}
 
 branding:
   icon: upload-cloud
