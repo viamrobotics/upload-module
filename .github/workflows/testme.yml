@@ -5,7 +5,11 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-    - name: empty files
-      run: touch meta.json module.tar.gz
+    - uses: actions/checkout@v3
     - name: upload
       uses: viamrobotics/upload-module@main
+      with:
+        meta-path: test/meta.json
+        org-id: ${{ secrets.test_org_id }}
+        do-upload: false
+        cli-config-secret: ${{ secrets.cli_config }}

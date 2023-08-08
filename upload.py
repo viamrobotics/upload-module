@@ -39,6 +39,7 @@ def main():
     else:
         raise Exception("shouldn't get here")
 
+    subprocess.check_call(['viam', 'version'])
     if args.do_update:
         subprocess.check_call(['viam', 'module', 'update', *meta_args, *org_args])
         logging.info('ran update')
