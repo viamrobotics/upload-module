@@ -1,6 +1,6 @@
 FROM python:3.10.12-slim
 
-ARG VIAM_CLI=viam-latest-linux-amd64
+ARG VIAM_CLI=viam-cli-latest-linux-amd64
 
 RUN apt update && apt install -qqy wget && apt clean && apt autoclean
 WORKDIR /usr/bin
