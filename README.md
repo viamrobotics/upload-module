@@ -11,23 +11,39 @@ For more information about the parameters, look at:
 ```yml
 on:
   push:
+  release:
+    types: [published]
 
 jobs:
-  publish:
+  # build step runs on every push
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: build
       run: make module.tar.gz # <-- your build command goes here
+    - uses: actions/upload-artifact@v3
+      with:
+        name: module
+        path: module.tar.gz
+
+  # publish step only runs on release
+  publish:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'release' }}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/download-artifact@v3 # consume built module from 'build' job
+      with:
+        name: module
     - name: upload
       uses: viamrobotics/upload-module@main
       with:
         module-path: module.tar.gz
-        org-id: ${{ secrets.org-id }}
+        org-id: your-org-id-uuid # <-- replace with your org ID
         platform: linux/amd64
         version: ${{ github.ref_name }}
         cli-config-secret: ${{ secrets.cli_config }}
-
 ```
 
 ## Setting CLI config secret
