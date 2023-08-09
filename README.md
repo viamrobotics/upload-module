@@ -8,6 +8,11 @@ For more information about the parameters, look at:
 
 ## Basic usage
 
+- Go to the 'Actions' tab of your repo and create a new workflow
+- Paste in the following YAML, then edit all the lines marked with `<--`
+- Follow the 'setting CLI config secret' instructions [below](#setting-cli-config-secret)
+- Create a new release from the 'Releases' button on the sidebar of your repo, because the 'publish' part of the logic only runs when you release. Go to your repo's 'Actions' tab to watch the job run and check for errors.
+
 ```yml
 on:
   push:
@@ -29,6 +34,7 @@ jobs:
 
   # publish step only runs on release
   publish:
+    needs: [build]
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'release' }}
     steps:
@@ -54,9 +60,16 @@ Base64-encode your CLI secret by running:
 cat ~/.viam/cached_cli_config.json | base64
 ```
 
-If that json file doesn't exist, run `viam login` first.
+(If that json file doesn't exist, run `viam login` first).
 
-Then set a secret by visiting the secrets page for your repo: https://github.com/.../.../settings/secrets/actions. (Replace the ...).
+Then:
+- copy the output of that command to the clipboard
+- go to 'Settings' -> 'Secrets and variables' -> 'Actions' in your repo
+- click the 'New repository secret' button
+- name your secret `cli_config` (so it agrees with `secrets.cli_config` in the sample YAML)
+- paste the base64 output into the secret body
+
+The publish job will run on your next release, or you can trigger a re-run of a previous failed job from your repo's 'Actions' tab.
 
 ## Example repos
 
