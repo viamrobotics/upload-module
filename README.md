@@ -47,7 +47,7 @@ jobs:
       with:
         module-path: module.tar.gz
         org-id: your-org-id-uuid # <-- replace with your org ID
-        platform: linux/amd64
+        platform: linux/amd64 # <-- replace with your target architecture, or your module will not deploy
         version: ${{ github.ref_name }}
         cli-config-secret: ${{ secrets.cli_config }}
 ```
