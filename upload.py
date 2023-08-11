@@ -45,7 +45,7 @@ def main():
     else:
         raise Exception("shouldn't get here")
 
-    command = f"viam-${ARCH_LOOKUP[platform.uname().machine]}"
+    command = f"viam-{ARCH_LOOKUP[platform.uname().machine]}"
     logging.info('selected command %s based on arch %s', command, platform.uname().machine)
 
     subprocess.check_call([command, 'version'])
