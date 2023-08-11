@@ -16,6 +16,7 @@ def main():
     g1.add_argument('--meta-path')
     g1.add_argument('--name')
 
+    # todo: these are no longer required
     g2 = p.add_mutually_exclusive_group(required=True)
     g2.add_argument('--org-id')
     g2.add_argument('--namespace')
