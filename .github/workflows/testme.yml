@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: upload
-      uses: viamrobotics/upload-module@main
+      uses: ./
       with:
         meta-path: test/meta.json
         org-id: ${{ secrets.test_org_id }}
