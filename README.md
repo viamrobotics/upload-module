@@ -14,7 +14,7 @@ For more information about the parameters, look at:
 - Go to the 'Actions' tab of your repo and create a new workflow
 - Paste in the following YAML, then edit all the lines marked with `<--`
 - Follow the 'setting CLI config secret' instructions [below](#setting-cli-config-secret)
-- Create a new release from the 'Releases' button on the sidebar of your repo, because the 'publish' part of the logic only runs when you release. Go to your repo's 'Actions' tab to watch the job run and check for errors.
+- Push to a branch or create a release -- your module should upload to our registry with the appropriate version
 
 ```yml
 on:
@@ -29,13 +29,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: build
       run: make module.tar.gz # <-- your build command goes here
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/download-artifact@v3 # consume built module from 'build' job
-      with:
-        name: module
-    - name: upload
-      uses: viamrobotics/upload-module@main
+    - uses: viamrobotics/upload-module@main
       with:
         module-path: module.tar.gz
         org-id: your-org-id-uuid # <-- replace with your org ID
