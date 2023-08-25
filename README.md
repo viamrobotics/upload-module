@@ -30,7 +30,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: build
-      run: make module.tar.gz # <-- replace this with the command that builds your module
+      run: echo "your build command goes here" && false # <-- replace this with the command that builds your module's tar.gz
     - uses: viamrobotics/upload-module@main
       # if: github.event_name == 'release' # <-- once the action is working, uncomment this so you only upload on release
       with:
