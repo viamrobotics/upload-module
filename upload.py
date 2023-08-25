@@ -16,6 +16,11 @@ def main():
     g1.add_argument('--meta-path')
     g1.add_argument('--name')
 
+    # todo: these are no longer required
+    g2 = p.add_mutually_exclusive_group(required=True)
+    g2.add_argument('--org-id')
+    g2.add_argument('--namespace')
+
     p.add_argument('--module-path')
     p.add_argument('--cli-config-secret')
     p.add_argument('--platform')
@@ -34,6 +39,10 @@ def main():
     meta_args = ()
     if args.meta_path:
         meta_args = ('--module', args.meta_path)
+    if args.org_id:
+        org_args = ('--org-id', args.org_id)
+    elif args.namespace:
+        org_args = ('--public-namespace', args.namespace)
     else:
         raise Exception("shouldn't get here")
 
@@ -42,10 +51,10 @@ def main():
 
     subprocess.check_call([command, 'version'])
     if args.do_update:
-        subprocess.check_call([command, 'module', 'update', *meta_args])
+        subprocess.check_call([command, 'module', 'update', *meta_args, *org_args])
         logging.info('ran update')
     if args.do_upload:
-        subprocess.check_call([command, 'module', 'upload', *meta_args, '--platform', args.platform, '--version', args.version, args.module_path])
+        subprocess.check_call([command, 'module', 'upload', *meta_args, *org_args, '--platform', args.platform, '--version', args.version, args.module_path])
         logging.info('ran upload')
 
 if __name__ == '__main__':

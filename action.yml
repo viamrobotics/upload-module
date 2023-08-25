@@ -10,6 +10,10 @@ inputs:
     default: module.tar.gz
   name:
     description: name of the module. only necessary if you don't provide a metadata file. (see inputs.meta-path)
+  org-id:
+    description: organization id. one of org-id or namespace are required
+  namespace:
+    description: public namespace. one of org-id or namespace are required
   cli-config-secret:
     description: cached_cli_config.json contents from ~/.viam, as base64. Alternative to providing an auth key.
   platform:
