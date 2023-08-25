@@ -17,7 +17,7 @@ def main():
     g1.add_argument('--name')
 
     # todo: these are no longer required
-    g2 = p.add_mutually_exclusive_group(required=True)
+    g2 = p.add_mutually_exclusive_group()
     g2.add_argument('--org-id')
     g2.add_argument('--namespace')
 
@@ -39,12 +39,11 @@ def main():
     meta_args = ()
     if args.meta_path:
         meta_args = ('--module', args.meta_path)
+    org_args = ()
     if args.org_id:
         org_args = ('--org-id', args.org_id)
     elif args.namespace:
         org_args = ('--public-namespace', args.namespace)
-    else:
-        raise Exception("shouldn't get here")
 
     command = f"viam-{ARCH_LOOKUP[platform.uname().machine]}"
     logging.info('selected command %s based on arch %s', command, platform.uname().machine)

@@ -9,18 +9,20 @@ For more information about the parameters, look at:
 - [action.yml](./action.yml)
 - `viam module update --help` and `viam module upload --help` in our CLI
 
+Or keep reading for a tutorial.
+
 ## Basic usage
 
-- Go to the 'Actions' tab of your repo and create a new workflow
-- Paste in the following YAML, then edit all the lines marked with `<--`
-- Follow the 'setting CLI config secret' instructions [below](#setting-cli-config-secret)
-- Push to a branch or create a release -- your module should upload to our registry with the appropriate version
+1. Go to the 'Actions' tab of your repo -> 'create a new workflow' -> 'set up yourself'
+1. Paste in the following YAML, then edit all the lines marked with `<--`
+1. Follow the 'setting CLI config secret' instructions [below](#setting-cli-config-secret)
+1. Push to a branch or create a release -- your module should upload to our registry with the appropriate version
 
 ```yml
 on:
   push:
   release:
-    types: [published]
+    types: [released]
 
 jobs:
   publish:
@@ -28,11 +30,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: build
-      run: make module.tar.gz # <-- your build command goes here
+      run: make module.tar.gz # <-- replace this with the command that builds your module
     - uses: viamrobotics/upload-module@main
+      # if: github.event_name == 'release' # <-- once the action is working, uncomment this so you only upload on release
       with:
         module-path: module.tar.gz
-        org-id: your-org-id-uuid # <-- replace with your org ID
         platform: linux/amd64 # <-- replace with your target architecture, or your module will not deploy
         version: ${{ github.event_name == 'release' && github.ref_name || format('0.0.0-{0}.{1}', github.ref_name, github.run_number) }} # <-- see 'Versioning' section below for explanation
         cli-config-secret: ${{ secrets.cli_config }}
@@ -46,6 +48,7 @@ jobs:
 Base64-encode your CLI secret by running:
 
 ```sh
+# run this on the device where you installed the `viam` CLI
 cat ~/.viam/cached_cli_config.json | base64
 ```
 
