@@ -31,7 +31,7 @@ def main():
     logging.basicConfig(level=logging.INFO)
 
     if args.cli_config_secret:
-        os.makedirs(os.path.expanduser('~/.viam'))
+        os.makedirs(os.path.expanduser('~/.viam'), exist_ok=True)
         with open(os.path.expanduser('~/.viam/cached_cli_config.json'), 'wb') as fconfig:
             fconfig.write(base64.b64decode(args.cli_config_secret))
         logging.info('wrote cli secret')
