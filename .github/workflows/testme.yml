@@ -21,5 +21,6 @@ jobs:
       uses: ./
       with:
         meta-path: test/meta.json
+        org-id: ${{ secrets.test_org_id }}
         do-upload: false
         cli-config-secret: ${{ secrets.cli_config }}
