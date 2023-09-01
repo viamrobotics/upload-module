@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 "upload.py -- maps action params to viam update + upload commands"
 
-import argparse, os, subprocess, base64, logging, platform
+import argparse, subprocess, logging, platform
 
 # map platform.uname.machine -> GOARCH
 ARCH_LOOKUP = {
