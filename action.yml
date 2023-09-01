@@ -55,8 +55,8 @@ runs:
   - ${{ inputs.version || '' }}
   - ${{ fromJSON(inputs.do-update) && '--do-update' || '' }}
   - ${{ fromJSON(inputs.do-upload) && '--do-upload' || '' }}
-  - --key-id=${{ inputs.key_id }}
-  - --key-value=${{ inputs.key_value }}
+  - --key-id=${{ inputs.key-id }}
+  - --key-value=${{ inputs.key-value }}
 
 branding:
   icon: upload-cloud
