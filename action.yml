@@ -14,10 +14,10 @@ inputs:
     description: organization id. one of org-id or namespace are required if your meta.json doesn't use a namespace
   namespace:
     description: public namespace. one of org-id or namespace are required if your meta.json doesn't use a namespace
-  key_id:
+  key-id:
     description: ID of your auth key
     required: true
-  key_value:
+  key-value:
     description: secret value of your auth key
     required: true
   platform:
