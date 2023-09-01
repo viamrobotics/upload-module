@@ -31,11 +31,6 @@ def main():
     args, _ = p.parse_known_args()
     logging.basicConfig(level=logging.INFO)
 
-    os.makedirs(os.path.expanduser('~/.viam'), exist_ok=True)
-    with open(os.path.expanduser('~/.viam/cached_cli_config.json'), 'wb') as fconfig:
-        fconfig.write(base64.b64decode(args.cli_config_secret))
-    logging.info('wrote cli secret')
-
     meta_args = ()
     if args.meta_path:
         meta_args = ('--module', args.meta_path)
