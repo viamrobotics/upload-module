@@ -22,7 +22,8 @@ def main():
     g2.add_argument('--namespace')
 
     p.add_argument('--module-path')
-    p.add_argument('--cli-config-secret')
+    p.add_argument('--key-id', required=True)
+    p.add_argument('--key-value', required=True)
     p.add_argument('--platform')
     p.add_argument('--version')
     p.add_argument('--do-update', action='store_true')
@@ -30,11 +31,10 @@ def main():
     args, _ = p.parse_known_args()
     logging.basicConfig(level=logging.INFO)
 
-    if args.cli_config_secret:
-        os.makedirs(os.path.expanduser('~/.viam'), exist_ok=True)
-        with open(os.path.expanduser('~/.viam/cached_cli_config.json'), 'wb') as fconfig:
-            fconfig.write(base64.b64decode(args.cli_config_secret))
-        logging.info('wrote cli secret')
+    os.makedirs(os.path.expanduser('~/.viam'), exist_ok=True)
+    with open(os.path.expanduser('~/.viam/cached_cli_config.json'), 'wb') as fconfig:
+        fconfig.write(base64.b64decode(args.cli_config_secret))
+    logging.info('wrote cli secret')
 
     meta_args = ()
     if args.meta_path:
@@ -49,6 +49,7 @@ def main():
     logging.info('selected command %s based on arch %s', command, platform.uname().machine)
 
     subprocess.check_call([command, 'version'])
+    subprocess.check_call([command, 'auth', 'api-key', '--key-id', args.key_id, '--key', args.key_value])
     if args.do_update:
         subprocess.check_call([command, 'module', 'update', *meta_args, *org_args])
         logging.info('ran update')
