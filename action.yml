@@ -14,8 +14,12 @@ inputs:
     description: organization id. one of org-id or namespace are required if your meta.json doesn't use a namespace
   namespace:
     description: public namespace. one of org-id or namespace are required if your meta.json doesn't use a namespace
-  cli-config-secret:
-    description: cached_cli_config.json contents from ~/.viam, as base64. Alternative to providing an auth key.
+  key-id:
+    description: ID of your auth key
+    required: true
+  key-value:
+    description: secret value of your auth key
+    required: true
   platform:
     description: a string like 'linux/amd64'. run `viam module upload --help` for all options.
   version:
@@ -51,6 +55,8 @@ runs:
   - ${{ inputs.version || '' }}
   - ${{ fromJSON(inputs.do-update) && '--do-update' || '' }}
   - ${{ fromJSON(inputs.do-upload) && '--do-upload' || '' }}
+  - --key-id=${{ inputs.key-id }}
+  - --key-value=${{ inputs.key-value }}
 
 branding:
   icon: upload-cloud
