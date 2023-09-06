@@ -42,7 +42,7 @@ jobs:
 ## Setting up auth
 
 1. Run `viam organizations list` to view your organization ID.
-2. Create a key with `viam organization api-key create --org-id $YOUR_ORG_UUID --name pick-any-name`. This command outputs an ID + a value, both of which you will use in step 4 below.
+2. Create a key with `viam organization api-key create --org-id $YOUR_ORG_UUID --name pick-any-name`. This command outputs an ID + a value, both of which you will use in step 4 below. If the command doesn't exist, update your CLI version.
 3. In the github repo for your project, go to 'Settings' -> 'Secrets and variables' -> 'Actions'
 4. Create two new secrets using the 'New repository secret' button:
   - `viam_key_id` with the UUID from "Key ID:" in your terminal
