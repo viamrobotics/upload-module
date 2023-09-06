@@ -71,4 +71,9 @@ This uploads the latest run from any branch if needed for testing.
 
 ## Example repos
 
-- [publish.yml in zipapp-module](https://github.com/viamrobotics/zipapp-module/blob/main/.github/workflows/publish.yml) (python)
+These are example repos showing how to package and deploy our different SDKs as modules.
+
+- [Python with virtualenv](https://github.com/viam-labs/python-example-module)
+- [Python with docker](https://github.com/viamrobotics/python-container-module)
+- [Golang](https://github.com/viam-labs/wifi-sensor)
+- [C++](https://github.com/viamrobotics/module-example-cpp)
