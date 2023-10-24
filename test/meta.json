@@ -7,5 +7,5 @@
     "api": "rdk:component:sensor",
     "model": "viam:ci:upload"
   }],
-  "entrypoint": ""
+  "entrypoint": "run.sh"
 }
