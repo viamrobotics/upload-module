@@ -16,6 +16,7 @@ Or keep reading for a tutorial.
 1. Push a commit or create a release -- your module should upload to our registry with the appropriate version
 
 ```yml
+# see https://github.com/viamrobotics/upload-module for help
 on:
   push:
   release:
