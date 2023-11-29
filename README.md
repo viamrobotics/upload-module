@@ -33,7 +33,6 @@ jobs:
       # if: github.event_name == 'release' # <-- once the action is working, uncomment this so you only upload on release
       with:
         module-path: module.tar.gz
-        org-id: your-org-id-uuid # <-- replace with your org ID. not required for public modules
         platform: linux/amd64 # <-- replace with your target architecture, or your module will not deploy
         version: ${{ github.event_name == 'release' && github.ref_name || format('0.0.0-{0}.{1}', github.ref_name, github.run_number) }} # <-- see 'Versioning' section below for explanation
         key-id: ${{ secrets.viam_key_id }}
