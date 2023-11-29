@@ -34,6 +34,9 @@ def main():
     meta_args = ()
     if args.meta_path:
         meta_args = ('--module', args.meta_path)
+    elif args.name:
+        meta_args = ('--name', args.name)
+
     org_args = ()
     if args.org_id:
         org_args = ('--org-id', args.org_id)
