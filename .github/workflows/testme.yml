@@ -39,6 +39,7 @@ jobs:
         with:
           name: upload-ci-test
           org-id: ${{ secrets.test_org_id }}
+          meta-path: ''
           module-path: test/module.tar.gz
           do-upload: true
           do-update: false
