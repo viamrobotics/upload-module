@@ -1,4 +1,3 @@
-# upload-module action
 
 This action uploads your module to the Viam modular registry. By default it runs both `update` (set your metadata) and `upload` (upload the module), but you can disable either step with configuration (see action.yml).
 
