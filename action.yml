@@ -11,9 +11,9 @@ inputs:
   name:
     description: name of the module. only necessary if you don't provide a metadata file. (see inputs.meta-path)
   org-id:
-    description: organization id. one of org-id or namespace are required if your meta.json doesn't use a namespace
+    description: organization id. one of org-id or namespace are required if you don't provide a metadata file. (see inputs.meta-path)
   namespace:
-    description: public namespace. one of org-id or namespace are required if your meta.json doesn't use a namespace
+    description: public namespace. one of org-id or namespace are required if you don't provide a metadata file. (see inputs.meta-path)
   key-id:
     description: ID of your auth key
     required: true

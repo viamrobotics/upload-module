@@ -1,27 +1,49 @@
 on:
   push:
-  
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
-    - name: deps
-      run: pip install ruff
-    - uses: actions/checkout@v3
-    - name: lint
-      run: ruff upload.py
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: deps
+        run: pip install ruff
+      - uses: actions/checkout@v3
+      - name: lint
+        run: ruff upload.py
   publish:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: upload
-      uses: ./
-      with:
-        meta-path: test/meta.json
-        org-id: ${{ secrets.test_org_id }}
-        do-upload: false
-        key-id: ${{ secrets.viam_key_id }}
-        key-value: ${{ secrets.viam_key_value }}
+      - uses: actions/checkout@v3
+      - name: update-only
+        uses: ./
+        with:
+          meta-path: test/meta.json
+          do-upload: false
+          key-id: ${{ secrets.viam_key_id }}
+          key-value: ${{ secrets.viam_key_value }}
+      - name: upload-with-meta-path
+        uses: ./
+        with:
+          meta-path: test/meta.json
+          module-path: test/module.tar.gz
+          do-upload: true
+          platform: "linux/amd64"
+          version: "0.0.0-${{ github.run_id }}-${{ github.run_attempt }}"
+          key-id: ${{ secrets.viam_key_id }}
+          key-value: ${{ secrets.viam_key_value }}
+      - name: upload-no-meta-path
+        uses: ./
+        with:
+          name: upload-ci-test
+          org-id: ${{ secrets.test_org_id }}
+          meta-path: ''
+          module-path: test/module.tar.gz
+          do-upload: true
+          do-update: false
+          platform: "linux/amd64"
+          version: "0.0.1-${{ github.run_id }}-${{ github.run_attempt }}"
+          key-id: ${{ secrets.viam_key_id }}
+          key-value: ${{ secrets.viam_key_value }}
