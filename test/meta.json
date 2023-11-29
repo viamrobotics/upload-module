@@ -1,5 +1,5 @@
 {
-  "module_id": "e76d1b3b-0468-4efd-bb7f-fb1d2b352fcb:upload-ci-test",
+  "module_id": "viam:upload-ci-test",
   "visibility": "private",
   "url": "https://github.com/viamrobotics/upload-module",
   "description": "No-op module used for the upload CI action's self-test",
