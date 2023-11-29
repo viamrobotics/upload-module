@@ -46,7 +46,7 @@ def main():
     subprocess.check_call([command, 'version'])
     subprocess.check_call([command, 'auth', 'api-key', '--key-id', args.key_id, '--key', args.key_value])
     if args.do_update:
-        subprocess.check_call([command, 'module', 'update', *meta_args, *org_args])
+        subprocess.check_call([command, 'module', 'update', *meta_args])
         logging.info('ran update')
     if args.do_upload:
         subprocess.check_call([command, 'module', 'upload', *meta_args, *org_args, '--platform', args.platform, '--version', args.version, args.module_path])
