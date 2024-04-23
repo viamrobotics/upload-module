@@ -1,5 +1,8 @@
 # upload-module action
 
+> [!NOTE]
+> The recommended action for Viam module CI is [viamrobotics/build-action](https://github.com/viamrobotics/build-action), which runs cross-platform builds in environments which we manage. Use this upload-module action if you are managing your own build and you want the action to just upload.
+
 This action uploads your module to the Viam modular registry. By default it runs both `update` (set your metadata) and `upload` (upload the module), but you can disable either step with configuration (see action.yml).
 
 For more information about the parameters, look at:
