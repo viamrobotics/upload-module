@@ -25,6 +25,7 @@ def main():
     p.add_argument('--key-id', required=True)
     p.add_argument('--key-value', required=True)
     p.add_argument('--platform')
+    p.add_argument('--tags')
     p.add_argument('--version')
     p.add_argument('--do-update', action='store_true')
     p.add_argument('--do-upload', action='store_true')
@@ -43,6 +44,10 @@ def main():
     elif args.namespace:
         org_args = ('--public-namespace', args.namespace)
 
+    tags = ()
+    if args.tags:
+        tags = ('--tags', args.tags)
+
     command = f"viam-{ARCH_LOOKUP[platform.uname().machine]}"
     logging.info('selected command %s based on arch %s', command, platform.uname().machine)
 
@@ -52,7 +57,7 @@ def main():
         subprocess.check_call([command, 'module', 'update', *meta_args])
         logging.info('ran update')
     if args.do_upload:
-        subprocess.check_call([command, 'module', 'upload', *meta_args, *org_args, '--platform', args.platform, '--version', args.version, args.module_path])
+        subprocess.check_call([command, 'module', 'upload', *meta_args, *org_args, '--platform', args.platform, *tags, '--version', args.version, args.module_path])
         logging.info('ran upload')
 
 if __name__ == '__main__':

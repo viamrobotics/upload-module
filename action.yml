@@ -22,6 +22,8 @@ inputs:
     required: true
   platform:
     description: a string like 'linux/amd64'. run `viam module upload --help` for all options.
+  tags:
+    description: optional. comma-separated list of tags for precise platform targeting. run `viam module upload --help` for all options.
   version:
     description: version to set for the module. required if do-upload=true
   do-update:
@@ -37,6 +39,7 @@ runs:
   using: docker
   image: Dockerfile
   args:
+  # list of key, value for optional args
   - ${{ inputs.meta-path && '--meta-path' || '' }}
   - ${{ inputs.meta-path || '' }}
   - ${{ inputs.module-path && '--module-path' || '' }}
@@ -51,6 +54,8 @@ runs:
   - ${{ inputs.cli-config-secret || '' }}
   - ${{ inputs.platform && '--platform' || '' }}
   - ${{ inputs.platform || '' }}
+  - ${{ inputs.tags && '--tags' || '' }}
+  - ${{ inputs.tags || '' }}
   - ${{ inputs.version && '--version' || '' }}
   - ${{ inputs.version || '' }}
   - ${{ fromJSON(inputs.do-update) && '--do-update' || '' }}
